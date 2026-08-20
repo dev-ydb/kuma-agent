@@ -3,6 +3,7 @@
 const path = require('node:path');
 const { loadConfig } = require('./config');
 const { createStateStore } = require('./state/store');
+const { createActionLog } = require('./state/action-log');
 const { createAiProvider } = require('./ai/provider');
 const { createActionExecutor } = require('./actions/executor');
 const { createCommandRouter } = require('./commands/router');
@@ -15,6 +16,7 @@ async function main() {
     lastAction: null,
     lastUpdatedAt: null
   });
+  const actionLog = createActionLog(path.resolve(process.cwd(), config.actionLogDir));
 
   await stateStore.load();
 
@@ -39,7 +41,18 @@ async function main() {
     logger: console,
     onChat: async (chat, client) => {
       currentClient = client;
-      await router.route(chat.input, chat);
+      const result = await router.route(chat.input, chat);
+      await actionLog.append({
+        kind: 'chat',
+        action: result.action || 'unknown',
+        input: chat.input,
+        result: result.action || 'unknown',
+        sourceName: chat.sourceName,
+        rawMessage: chat.rawMessage,
+        message: result.message,
+        target: result.target,
+        note: result.skipped ? 'skipped' : undefined
+      });
     },
     onReady: () => {
       console.log('[app] bot is ready');

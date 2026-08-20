@@ -89,6 +89,7 @@ Adjust `User`, `Group`, and the Node path to match the actual VPS setup.
 - Leave the reconnect delay conservative so the bot does not thrash the server during outages.
 - Check `journalctl -u kuma-agent -f` when debugging startup or reconnect problems.
 - Keep `data/state.json` writable by the service user.
+- Keep `data/logs/` writable by the service user if you want daily Markdown action logs.
 - This bot is constrained by `bedrock-protocol` version support. If the Bedrock Dedicated Server is newer than the latest supported protocol version, the bot may fail to stay connected even when the network and credentials are correct.
 - For the current setup, a server on `1.26.42` is beyond the versions listed by `bedrock-protocol` at the time of writing, so the bot may not be able to remain connected until the library updates.
 

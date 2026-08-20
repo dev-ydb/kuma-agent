@@ -11,20 +11,28 @@ function createActionExecutor({ getClient, stateStore, config, logger = console 
   });
 
   async function execute(action, context = {}) {
+    let result;
+
     switch (action.action) {
       case 'say':
-        return executeSay(action, context);
+        result = await executeSay(action, context);
+        break;
       case 'stop':
-        return executeStop({ action, context, stateStore, logger });
+        result = await executeStop({ action, context, stateStore, logger });
+        break;
       case 'follow':
-        return executeFollow({ action, context, stateStore, logger });
+        result = await executeFollow({ action, context, stateStore, logger });
+        break;
       case 'unknown':
       default:
-        return {
+        result = {
           action: 'unknown',
           input: action.input || ''
         };
+        break;
     }
+
+    return result;
   }
 
   return {

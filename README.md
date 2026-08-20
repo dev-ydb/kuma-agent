@@ -50,6 +50,23 @@ npm start
 - `RECONNECT_DELAY_MS`: Base reconnect delay, default `5000`
 - `RECONNECT_MAX_DELAY_MS`: Max reconnect delay, default `60000`
 - `STATE_FILE`: JSON file used for lightweight persisted state
+- `ACTION_LOG_DIR`: Directory for daily Markdown action logs, default `data/logs`
+
+## Action logs
+
+The bot appends a Markdown table for each day under `data/logs/YYYY-MM-DD.md`.
+
+Each row records:
+
+- Timestamp
+- Whether the entry came from chat processing
+- Source player
+- Raw chat message
+- Parsed input
+- Structured action
+- Result details
+- Target, if any
+- Notes such as skipped actions
 
 ## Example chat commands
 

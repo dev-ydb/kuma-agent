@@ -37,7 +37,8 @@ function loadConfig(env = process.env) {
     prefix: env.BOT_PREFIX || 'Kuma',
     reconnectDelayMs: parseInteger(env.RECONNECT_DELAY_MS, 5000),
     reconnectMaxDelayMs: parseInteger(env.RECONNECT_MAX_DELAY_MS, 60000),
-    stateFile: env.STATE_FILE || 'data/state.json'
+    stateFile: env.STATE_FILE || 'data/state.json',
+    actionLogDir: env.ACTION_LOG_DIR || 'data/logs'
   };
 }
 
