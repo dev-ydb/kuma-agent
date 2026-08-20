@@ -1,0 +1,91 @@
+# Kuma Agent
+
+`kuma-agent` is a lightweight Minecraft Bedrock bot scaffold for a VPS with very limited RAM.
+
+## What it does
+
+- Connects to a Bedrock Dedicated Server with `bedrock-protocol`
+- Listens to chat messages
+- Processes only messages that start with the configured bot prefix
+- Converts commands into structured actions first
+- Executes deterministic local actions
+- Keeps a stubbed AI provider interface for later external API integration
+
+## Requirements
+
+- Node.js 22
+- npm
+- Minecraft Bedrock Dedicated Server
+
+## Setup
+
+```bash
+npm install
+cp .env.example .env
+```
+
+Edit `.env` if needed, then start the bot:
+
+```bash
+npm start
+```
+
+## Environment
+
+- `MC_HOST`: Bedrock server host, default `127.0.0.1`
+- `MC_PORT`: Bedrock server port, default `19132`
+- `MC_USERNAME`: Bot username, default `Kuma`
+- `MC_OFFLINE`: Use offline auth, default `true`
+- `MC_VERSION`: Optional Bedrock protocol version override
+- `BOT_PREFIX`: Chat prefix to watch for, default `Kuma`
+- `RECONNECT_DELAY_MS`: Base reconnect delay, default `5000`
+- `RECONNECT_MAX_DELAY_MS`: Max reconnect delay, default `60000`
+- `STATE_FILE`: JSON file used for lightweight persisted state
+
+## Example chat commands
+
+- `Kuma 안녕`
+- `Kuma hello`
+- `Kuma こんにちは`
+- `Kuma 멈춰`
+- `Kuma stop`
+- `Kuma 따라와`
+- `Kuma follow me`
+
+## Architecture
+
+```text
+Minecraft Bedrock Server
+        │
+        │ Bedrock Protocol
+        ▼
+Minecraft Client / NPC
+        │
+        ▼
+Chat Listener
+        │
+        ▼
+Command Router
+        │
+        ├── Local deterministic commands
+        │
+        └── Future AI provider interface
+                │
+                ▼
+        Structured Action
+                │
+                ▼
+        Action Executor
+```
+
+The AI provider is currently a stub that always returns `null`.
+
+## GitHub workflow
+
+If you want Codex to help manage the repository, use the GitHub-first workflow described in [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+Suggested pattern:
+
+- Create one issue per task
+- Ask Codex to work on one branch at a time
+- Review the PR diff and validation notes before merging

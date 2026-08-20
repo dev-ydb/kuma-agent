@@ -1,0 +1,14 @@
+{
+  "name": "kuma-agent",
+  "version": "0.1.0",
+  "description": "Lightweight Bedrock NPC/bot base for Kuma.",
+  "private": true,
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "bedrock-protocol": "^3.58.2"
+  }
+}
