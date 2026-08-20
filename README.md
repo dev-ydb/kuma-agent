@@ -68,6 +68,10 @@ Each row records:
 - Target, if any
 - Notes such as skipped actions
 
+## Architecture
+
+See [architecture.md](./architecture.md) for the full system map, runtime flow, and file-by-file responsibilities.
+
 ## Example chat commands
 
 - `Kuma 안녕`
@@ -77,32 +81,6 @@ Each row records:
 - `Kuma stop`
 - `Kuma 따라와`
 - `Kuma follow me`
-
-## Architecture
-
-```text
-Minecraft Bedrock Server
-        │
-        │ Bedrock Protocol
-        ▼
-Minecraft Client / NPC
-        │
-        ▼
-Chat Listener
-        │
-        ▼
-Command Router
-        │
-        ├── Local deterministic commands
-        │
-        └── Future AI provider interface
-                │
-                ▼
-        Structured Action
-                │
-                ▼
-        Action Executor
-```
 
 The AI provider is currently a stub that always returns `null`.
 
