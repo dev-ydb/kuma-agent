@@ -89,6 +89,30 @@ Adjust `User`, `Group`, and the Node path to match the actual VPS setup.
 - Leave the reconnect delay conservative so the bot does not thrash the server during outages.
 - Check `journalctl -u kuma-agent -f` when debugging startup or reconnect problems.
 - Keep `data/state.json` writable by the service user.
+- This bot is constrained by `bedrock-protocol` version support. If the Bedrock Dedicated Server is newer than the latest supported protocol version, the bot may fail to stay connected even when the network and credentials are correct.
+- For the current setup, a server on `1.26.42` is beyond the versions listed by `bedrock-protocol` at the time of writing, so the bot may not be able to remain connected until the library updates.
+
+## Version watch
+
+Watch for upstream support updates in `bedrock-protocol` when the Bedrock server version changes.
+
+Useful checks:
+
+- Review the `bedrock-protocol` README version list
+- Scan recent releases or commit activity in the upstream repository
+- Retry the bot after a dependency update only when the protocol version you need appears in the supported list
+
+## Replacement checklist
+
+Use this checklist when `bedrock-protocol` adds support for the Bedrock server version you are running:
+
+1. Update `bedrock-protocol` in `package.json` if needed.
+2. Run `npm install` on the development machine or VPS.
+3. Confirm the supported version appears in the upstream README.
+4. Set `MC_VERSION` to the exact supported Bedrock version only if you want to pin the client.
+5. Restart the bot on ConoHa and verify `join` and `spawn` events.
+6. Test a prefix command like `Kuma hello`.
+7. Update this document if the deployment steps change.
 
 ## Update workflow
 
@@ -109,4 +133,3 @@ The bot is intentionally small:
 - No local model inference
 
 That makes it suitable for a ~2 GB RAM VPS alongside the Bedrock server.
-

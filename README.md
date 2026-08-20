@@ -4,18 +4,27 @@
 
 ## What it does
 
-- Connects to a Bedrock Dedicated Server with `bedrock-protocol`
+- Connects to a Bedrock Dedicated Server with `bedrock-protocol` when the server version is supported
 - Listens to chat messages
 - Processes only messages that start with the configured bot prefix
 - Converts commands into structured actions first
 - Executes deterministic local actions
 - Keeps a stubbed AI provider interface for later external API integration
+- Uses a lightweight reconnect loop instead of a heavy process manager
 
 ## Requirements
 
 - Node.js 22
 - npm
 - Minecraft Bedrock Dedicated Server
+
+## Version support note
+
+This bot currently depends on `bedrock-protocol`.
+
+At the moment, the project is limited by the protocol versions that `bedrock-protocol` supports. If your Bedrock server is newer than the latest supported version in the library, the bot may connect and then be immediately disconnected during login.
+
+For the current repository state, that means a server on `1.26.42` may not be reachable until `bedrock-protocol` adds support for it.
 
 ## Setup
 
